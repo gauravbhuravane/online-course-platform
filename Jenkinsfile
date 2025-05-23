@@ -5,39 +5,34 @@ pipeline {
     nodejs 'nodeHome'
   }
 
-  environment {
-    PORT = '3000'
-  }
-
   stages {
     stage('Clone') {
       steps {
-        git url: 'https://github.com/gauravbhuravane/online-course-platform.git', branch: 'main'
+        git url: 'https://github.com/gauravbhuravane/online-course-platform.git'
       }
     }
 
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t online-course-platform .'
+        bat 'docker build -t online-course-platform .'
       }
     }
 
     stage('Run Docker Container') {
       steps {
-        sh 'docker rm -f online-course-platform || true'
-        sh 'docker run -d --name online-course-platform -p 3000:80 online-course-platform'
-        echo '✅ React App running in Docker at: http://localhost:3000'
+        bat 'docker rm -f online-course-platform || exit 0'
+        bat 'docker run -d -p 3000:80 --name online-course-platform online-course-platform'
       }
     }
 
     stage('Run Ansible') {
       steps {
-        sh 'ansible-playbook deploy.yml'
+        bat 'ansible-playbook deploy.yml'
       }
     }
   }
 
   triggers {
-    pollSCM('* * * * *')
+    pollSCM('H/5 * * * *')
   }
 }
