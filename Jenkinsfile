@@ -24,12 +24,6 @@ pipeline {
         bat 'docker run -d -p 3000:80 --name online-course-platform online-course-platform'
       }
     }
-
-    stage('Run Ansible') {
-      steps {
-        bat 'ansible-playbook deploy.yml'
-      }
-    }
   }
 
   triggers {
