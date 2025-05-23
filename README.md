@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# Online Course Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a frontend-only React application designed to list online courses, display details, and allow dummy enrollments.
 
-## Available Scripts
+It is deployed using a CI/CD pipeline that integrates GitHub, Jenkins, Docker, and Ansible — following modern DevOps practices.
 
-In the project directory, you can run:
+Objectives:
 
-### `npm start`
+- Clone source code automatically from GitHub
+- Build and deploy the React app using Docker
+- Use Jenkins for continuous integration and deployment
+- Deploy using Ansible (inside WSL or localhost)
+- Access the running app from the browser
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Technologies Used:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React.js (Frontend)
+- Node.js (Build environment)
+- GitHub (Source code management)
+- Jenkins (CI/CD automation)
+- Docker (Containerization)
+- Ansible (Deployment automation)
+- Nginx (Static hosting inside Docker)
 
-### `npm test`
+Project Structure:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+online-course-platform/
+├── public/
+├── src/
+│   ├── pages/
+│   └── App.js
+├── Dockerfile
+├── Jenkinsfile
+├── deploy.yml
+├── package.json
+└── README.md
 
-### `npm run build`
+Features:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Home Page: Welcome message
+- Course Categories: Lists all available course types and cards
+- Course Details: Descriptions and dummy enroll button
+- Enrollment Form: Accepts name and course (dummy)
+- Dockerized App: Runs inside a container
+- CI/CD Integrated: Jenkins + Ansible workflow
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+How to Run Locally:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the Repository:
+   git clone https://github.com/gauravbhuravane/online-course-platform.git
+   cd online-course-platform
 
-### `npm run eject`
+2. Install Dependencies:
+   npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Start the Application:
+   npm start
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+App will run at http://localhost:3000
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+How to Run with Docker:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Build Docker Image:
+   docker build -t online-course-platform .
 
-## Learn More
+2. Run Docker Container:
+   docker run -d -p 3000:80 --name online-course-platform online-course-platform
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Access the app at http://localhost:3000
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+CI/CD Pipeline (Jenkins + Ansible):
 
-### Code Splitting
+- Jenkinsfile contains pipeline stages:
+  - Clone GitHub repo
+  - Build Docker image
+  - Run Ansible deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Ansible deploy.yml:
+  - Stops existing container
+  - Builds image
+  - Starts a new container
 
-### Analyzing the Bundle Size
+Workflow:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Push changes to GitHub
+2. Jenkins polls every minute
+3. Jenkins triggers pipeline
+4. Ansible deploys Docker container
+5. App accessible at http://localhost:3000
 
-### Making a Progressive Web App
+Collaborator Workflow:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Create branch: git checkout -b feature/branch-name
+- Make commits: git commit -m "Message"
+- Push to branch: git push origin feature/branch-name
+- Create Pull Request and merge to main or master
 
-### Advanced Configuration
+Author:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Gaurav Bhuravane  
+MCA Student — Finolex Academy of Management & Technology  
+This project is part of the DevOps Mini Project Lab
