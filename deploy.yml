@@ -1,0 +1,13 @@
+- name: Deploy React App Using Docker
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Stop existing container
+      shell: docker rm -f online-course-platform || true
+
+    - name: Build Docker image
+      shell: docker build -t online-course-platform .
+
+    - name: Build Docker container
+      shell: docker run -d -p  80:80 --name online-course-platform online-couse-platform
